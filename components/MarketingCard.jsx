@@ -53,10 +53,6 @@ export default function MarketingCard() {
                                 <span className="contact-icon"><FaPhone /></span>
                                 <span>{marketingCard.phone}</span>
                             </div>
-                            <div className="contact-item">
-                                <span className="contact-icon"><FaGlobe /></span>
-                                <span>{marketingCard.website}</span>
-                            </div>
                         </div>
 
                         <div className="skills-section">

@@ -353,26 +353,7 @@ body {
 }
 
 .dot-label {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px 8px;
-  margin-bottom: 8px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-  pointer-events: none;
-}
-
-.dot:hover .dot-label {
-  opacity: 1;
+  display: none;
 }
 
 /* Card wrapper adjustments for slider */
@@ -1053,8 +1034,8 @@ body {
 /* Phone */
 @media (max-width: 480px) {
   :root {
-    --card-width: 300px;
-    --card-height: 189px;
+    --card-width: 340px;
+    --card-height: 215px;
   }
 
   .app-container {
@@ -1063,7 +1044,7 @@ body {
   }
 
   .app-title {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .flip-stage,
@@ -1076,10 +1057,96 @@ body {
     height: calc(var(--card-height) + 60px);
   }
 
-  .slider-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
+  .card-inner {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .profile-section {
+    width: 75px;
+    min-width: 75px;
+  }
+
+  .profile-image-container {
+    width: 75px;
+    height: 75px;
+  }
+
+  .name-field {
+    font-size: 1.2rem;
+  }
+
+  .title-field {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 35px;
+    height: 2px;
+    margin: 3px 0;
+  }
+
+  .contact-info {
+    gap: 2px;
+  }
+
+  .contact-item {
+    font-size: 0.7rem;
+    gap: 6px;
+  }
+
+  .contact-icon {
+    width: 14px;
+    min-width: 14px;
+    font-size: 0.7rem;
+  }
+
+  .skills-section {
+    margin-top: 4px;
+    gap: 4px;
+  }
+
+  .skill-tag {
+    padding: 2px 6px;
+    font-size: 0.55rem;
+    gap: 3px;
+    border-radius: 4px;
+  }
+
+  .skill-icon {
+    font-size: 0.6rem;
+  }
+
+  .swipe-hint {
+    font-size: 0.7rem;
+  }
+
+  .slider-dots {
+    gap: 10px;
+    margin-top: var(--space-md);
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dot-label {
+    font-size: 0.6rem;
+    padding: 4px 8px;
+  }
+}
+
+/* Small Phone */
+@media (max-width: 360px) {
+  :root {
+    --card-width: 300px;
+    --card-height: 190px;
+  }
+
+  .app-title {
+    font-size: 1.3rem;
   }
 
   .card-inner {
@@ -1098,139 +1165,24 @@ body {
   }
 
   .name-field {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
 
   .title-field {
-    font-size: 0.55rem;
-    letter-spacing: 0.8px;
-  }
-
-  .divider {
-    width: 30px;
-    height: 2px;
-    margin: 2px 0;
-  }
-
-  .contact-info {
-    gap: 1px;
+    font-size: 0.6rem;
   }
 
   .contact-item {
-    font-size: 0.55rem;
-    gap: 5px;
+    font-size: 0.6rem;
   }
 
   .contact-icon {
-    width: 11px;
-    min-width: 11px;
-    font-size: 0.55rem;
-  }
-
-  .skills-section {
-    margin-top: 2px;
-    gap: 2px;
+    font-size: 0.6rem;
   }
 
   .skill-tag {
-    padding: 1px 4px;
-    font-size: 0.4rem;
-    gap: 2px;
-    border-radius: 3px;
-  }
-
-  .skill-icon {
     font-size: 0.5rem;
-  }
-
-  .editable-field {
-    padding: 1px 3px;
-    min-height: 16px;
-  }
-
-  .toggle-button {
-    width: 24px;
-    height: 24px;
-    font-size: 0.65rem;
-    bottom: 6px;
-    right: 6px;
-  }
-
-  .edit-indicator {
-    padding: 3px 6px;
-    font-size: 0.45rem;
-    top: 6px;
-    right: 6px;
-  }
-
-  .hint-text {
-    font-size: 0.55rem;
-    margin-top: 2px;
-  }
-
-  .slider-dots {
-    gap: 8px;
-    margin-top: var(--space-md);
-  }
-
-  .dot {
-    width: 10px;
-    height: 10px;
-  }
-
-  .dot-label {
-    font-size: 0.55rem;
-    padding: 3px 6px;
-  }
-}
-
-/* Small Phone */
-@media (max-width: 360px) {
-  :root {
-    --card-width: 270px;
-    --card-height: 170px;
-  }
-
-  .app-title {
-    font-size: 1.1rem;
-  }
-
-  .slider-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 0.7rem;
-  }
-
-  .card-inner {
-    padding: 10px 12px;
-    gap: 10px;
-  }
-
-  .profile-section {
-    width: 55px;
-    min-width: 55px;
-  }
-
-  .profile-image-container {
-    width: 55px;
-    height: 55px;
-  }
-
-  .name-field {
-    font-size: 0.85rem;
-  }
-
-  .title-field {
-    font-size: 0.5rem;
-  }
-
-  .contact-item {
-    font-size: 0.5rem;
-  }
-
-  .skill-tag {
-    font-size: 0.35rem;
-    padding: 1px 3px;
+    padding: 2px 5px;
   }
 }
 

@@ -1,15 +1,16 @@
 'use client';
 
-import { FaReact, FaNodeJs, FaAws, FaCode, FaEnvelope, FaPhone, FaGlobe } from 'react-icons/fa';
-import { SiNextdotjs, SiTypescript } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaCode, FaEnvelope, FaPhone, FaGlobe, FaMobileAlt, FaPalette } from 'react-icons/fa';
+import { SiNextdotjs, SiMongodb } from 'react-icons/si';
 import { developerCard } from '../config/cardConfig';
 
 const skillIcons = {
     'React': FaReact,
+    'React Native': FaMobileAlt,
     'Next.js': SiNextdotjs,
     'Node.js': FaNodeJs,
-    'TypeScript': SiTypescript,
-    'AWS': FaAws,
+    'MongoDB': SiMongodb,
+    'UI/UX': FaPalette,
 };
 
 export default function DeveloperCard() {
@@ -52,10 +53,6 @@ export default function DeveloperCard() {
                             <div className="contact-item">
                                 <span className="contact-icon"><FaPhone /></span>
                                 <span>{developerCard.phone}</span>
-                            </div>
-                            <div className="contact-item">
-                                <span className="contact-icon"><FaGlobe /></span>
-                                <span>{developerCard.website}</span>
                             </div>
                         </div>
 
