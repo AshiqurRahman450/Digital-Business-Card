@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import DeveloperCard from './DeveloperCard';
 import MarketingCard from './MarketingCard';
 
 export default function CardSlider() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isFlipping, setIsFlipping] = useState(false);
+    const touchStartX = useRef(0);
+    const touchEndX = useRef(0);
 
     const cards = useMemo(() => [
         { component: DeveloperCard, label: 'Developer' },
@@ -18,10 +19,9 @@ export default function CardSlider() {
         if (isFlipping || newIndex === activeIndex) return;
         setIsFlipping(true);
 
-        // Start flip animation, change card at midpoint
         setTimeout(() => {
             setActiveIndex(newIndex);
-        }, 400); // Change at halfway point of 800ms animation
+        }, 400);
 
         setTimeout(() => {
             setIsFlipping(false);
@@ -38,13 +38,47 @@ export default function CardSlider() {
         flipToCard(prevIndex);
     }, [activeIndex, cards.length, flipToCard]);
 
-    // Auto-rotate every 10 seconds
-    useEffect(() => {
-        const interval = setInterval(() => {
-            goToNext();
-        }, 10000);
-        return () => clearInterval(interval);
-    }, [goToNext]);
+    // Swipe detection
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        const diff = touchStartX.current - touchEndX.current;
+        const minSwipeDistance = 50;
+
+        if (Math.abs(diff) > minSwipeDistance) {
+            if (diff > 0) {
+                // Swiped left - go to next
+                goToNext();
+            } else {
+                // Swiped right - go to previous
+                goToPrev();
+            }
+        }
+    };
+
+    // Mouse swipe for desktop
+    const handleMouseDown = (e) => {
+        touchStartX.current = e.clientX;
+    };
+
+    const handleMouseUp = (e) => {
+        const diff = touchStartX.current - e.clientX;
+        const minSwipeDistance = 50;
+
+        if (Math.abs(diff) > minSwipeDistance) {
+            if (diff > 0) {
+                goToNext();
+            } else {
+                goToPrev();
+            }
+        }
+    };
 
     // Memoize particle styles
     const particles = useMemo(() =>
@@ -66,16 +100,14 @@ export default function CardSlider() {
                 ))}
             </div>
 
-            <div className="flip-stage">
-                <button
-                    className="slider-btn prev"
-                    onClick={goToPrev}
-                    disabled={isFlipping}
-                    aria-label="Previous card"
-                >
-                    <FaChevronLeft />
-                </button>
-
+            <div
+                className="flip-stage"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+            >
                 <div className="flip-container">
                     <div className={`flip-card ${isFlipping ? 'flipping' : ''}`}>
                         <div className="flip-card-inner">
@@ -88,16 +120,14 @@ export default function CardSlider() {
                         </div>
                     </div>
                 </div>
-
-                <button
-                    className="slider-btn next"
-                    onClick={goToNext}
-                    disabled={isFlipping}
-                    aria-label="Next card"
-                >
-                    <FaChevronRight />
-                </button>
             </div>
+
+            {/* Swipe hint */}
+            <p className="swipe-hint">
+                <span className="swipe-icon">👈</span>
+                Swipe to switch cards
+                <span className="swipe-icon">👉</span>
+            </p>
 
             {/* Card indicator dots */}
             <div className="slider-dots">
